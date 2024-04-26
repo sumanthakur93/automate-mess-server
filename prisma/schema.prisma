@@ -1,0 +1,93 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Refresh_Token {
+  token String @id @db.VarChar(255)
+}
+
+enum User_Roles {
+  Student
+  Mess_Community_Member
+}
+
+model Student {
+  rollNumber       String        @id
+  name             String
+  email            String
+  mobile           String?
+  hostelName       String?
+  roles            String
+  profilePhotoId   String?
+  gaurdianName     String?
+  gaurdianEmail    String?
+  gaurdianMobile   String?
+  gaurdianRelation String?
+  password         String
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  verified         Boolean       @default(false)
+  Rebate           Rebate[]
+  Mess_Bill        Mess_Bill[]
+  Transaction      Transaction[]
+  Document         Document[]
+}
+
+model Document {
+  documentId String   @id
+  docType    String
+  student    Student  @relation(fields: [rollNumber], references: [rollNumber])
+  rollNumber String
+  createdAt  DateTime @default(now())
+}
+
+model Rebate {
+  rebateId   String  @id @default(uuid())
+  student    Student @relation(fields: [rollNumber], references: [rollNumber])
+  rollNumber String
+  days       Int
+  from       String
+  to         String
+}
+
+model Mess_Bill {
+  rollNumber String
+  balance    Float
+  month      Int
+  year       Int
+  amount     Float
+  student    Student  @relation(fields: [studentId], references: [rollNumber])
+  studentId  String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@id([rollNumber, month, year])
+}
+
+model Transaction {
+  razorpay_order_id   String   @id
+  razorpay_payment_id String
+  razorpay_signature  String
+  student             Student  @relation(fields: [rollNumber], references: [rollNumber])
+  rollNumber          String
+  amount              Float
+  createdAt           DateTime @default(now())
+}
+
+model Admin {
+  adminId        Int     @id @default(autoincrement())
+  name           String
+  email          String
+  mobile         String?
+  profilePhotoId String?
+  password       String
+  roles          String
+}
