@@ -17,7 +17,7 @@ router.post("/auth/admin-register",adminRegister)
 router.post("/auth/refresh",refresh)
 router.get("/auth/logout",logout)
 router.get("/auth/me",auth,me)
-router.get("/auth/admin",adminAuth,admin)
+router.get("/auth/admin",adminAuth,admin) 
 
 /******   MESS BILL   *******/
 router.get("/messBill/get",auth,getMessBill)

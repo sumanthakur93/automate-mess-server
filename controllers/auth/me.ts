@@ -16,7 +16,7 @@ export const me = async (req: Request, res: Response, next: NextFunction) => {
                 roles: true,
                 profilePhotoId: true,
                 verified: true,
-                rollNumber: true
+                rollNumber: true  
             }
         })
         return res.status(200).json(student)
