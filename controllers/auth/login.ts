@@ -41,16 +41,22 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
         })
         return res.status(200).cookie("accessToken", accessToken, {
             expires: new Date(new Date().getTime() + 60 * 60 * 1000),
-            sameSite: "strict",
+            sameSite: "none",
             httpOnly: true,
+            secure: true,
         }).cookie("isAccessToken", true, {
             expires: new Date(new Date().getTime() + 60 * 60 * 1000),
+            secure: true,
+            sameSite: "none"
         }).cookie("refreshToken", refreshToken, {
             expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
-            sameSite: "strict",
+            sameSite: "none",
             httpOnly: true,
+            secure: true
         }).cookie("isRefreshToken", true, {
             expires: new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000),
+            secure: true,
+            sameSite: "none"
         }).json({ msg: "login success" })
     } catch (err) {
         return next(err)
