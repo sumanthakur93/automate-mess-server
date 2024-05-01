@@ -3,6 +3,7 @@ import db from "../../db"
 
 export const me = async (req: Request, res: Response, next: NextFunction) => {
     try {
+          console.log(req.body);
         const student = await db.student.findFirst({
             where: {
                 rollNumber: {

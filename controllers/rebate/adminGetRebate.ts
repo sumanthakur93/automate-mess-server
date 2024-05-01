@@ -6,9 +6,10 @@ export const adminGetRebate = async (req: Request, res: Response, next: NextFunc
         const data = await db.rebate.findMany({
             orderBy: {
                 from: "desc"
-            }
-        })
-        return res.status(200).json(data)
+            } 
+        }) 
+       
+        return res.status(200).json(data); 
     } catch (err) {
         return next(err);
     }

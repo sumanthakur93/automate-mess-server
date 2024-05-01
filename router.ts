@@ -4,7 +4,7 @@ const router = express.Router()
 import { admin, adminLogin, adminRegister, login, logout, me, refresh, register } from './controllers/auth';
 import { createOrder, getMessBill, getTransaction, verifyOrder, addBill } from './controllers/messBill';
 import { getFile, uploadFile } from './controllers/fileUpload';
-import { addRebate, adminGetRebate, getRebate } from './controllers/rebate';
+import { addRebate, adminGetRebate, getRebate, delRebate } from './controllers/rebate';
 import { updateProfilePhotoId, updateProfilePhotoIdAdmin } from './controllers/profile';
 import auth from './middleware/auth';
 import adminAuth from './middleware/adminAuth';
@@ -33,11 +33,13 @@ router.get("/file/get/:fileName",getFile)
 /***********  REBATE  ***************/
 router.post("/rebate/addRebate",auth,addRebate)
 router.get("/rebate/getRebate",auth,getRebate)
+router.post("/rebate/delRebate", auth, delRebate);
+router.post("/rebate/admin/delRebate", adminAuth, delRebate);
 router.get("/rebate/admin-getRebate",adminAuth,adminGetRebate)
 
 /***********  PROFILE  ***************/
 router.post("/profile/update/profilePhotoId",auth,updateProfilePhotoId)
-router.post("/profile/update/profilePhotoId/admin",adminAuth,updateProfilePhotoIdAdmin)
+router.post("/profile/update/profilePhotoId/admin",adminAuth,updateProfilePhotoIdAdmin) 
 
 
 export default router

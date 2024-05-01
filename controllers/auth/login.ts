@@ -19,7 +19,7 @@ export const login = async (req: Request, res: Response, next: NextFunction) => 
                 rollNumber: {
                     equals: rollNumber
                 }
-            },
+            }, 
             select: {
                 password: true,
                 name: true,
